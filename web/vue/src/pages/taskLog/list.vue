@@ -215,6 +215,9 @@ export default {
       if (row[col.property] === 1) {
         return 'http'
       }
+      if (row[col.property] === 3) {
+        return 'python'
+      }
       return 'shell'
     },
     changePage (page) {

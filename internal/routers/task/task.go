@@ -99,7 +99,7 @@ func Store(ctx *macaron.Context, form TaskForm) string {
 		return json.CommonFailure("任务名称已存在")
 	}
 
-	if form.Protocol == models.TaskRPC && form.HostId == "" {
+	if (form.Protocol == models.TaskShell || form.Protocol == models.TaskPython) && form.HostId == "" {
 		return json.CommonFailure("请选择主机名")
 	}
 
@@ -182,7 +182,7 @@ func Store(ctx *macaron.Context, form TaskForm) string {
 	}
 
 	taskHostModel := new(models.TaskHost)
-	if form.Protocol == models.TaskRPC {
+	if form.Protocol == models.TaskShell || form.Protocol == models.TaskPython {
 		hostIdStrList := strings.Split(form.HostId, ",")
 		hostIds := make([]int, len(hostIdStrList))
 		for i, hostIdStr := range hostIdStrList {

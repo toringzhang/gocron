@@ -52,7 +52,7 @@ func Stop(ctx *macaron.Context) string {
 	if err != nil {
 		return json.CommonFailure("获取任务信息失败#"+err.Error(), err)
 	}
-	if task.Protocol != models.TaskRPC {
+	if task.Protocol != models.TaskShell {
 		return json.CommonFailure("仅支持SHELL任务手动停止")
 	}
 	if len(task.Hosts) == 0 {

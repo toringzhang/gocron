@@ -37,7 +37,13 @@ func (s Server) Run(ctx context.Context, req *pb.TaskRequest) (*pb.TaskResponse,
 		}
 	}()
 	log.Infof("execute cmd start: [id: %d cmd: %s]", req.Id, req.Command)
-	output, err := utils.ExecShell(ctx, req.Command)
+	var output string
+	var err error
+	if req.Type == "python" {
+		output, err = utils.ExecPython(ctx, req.Command)
+	} else {
+		output, err = utils.ExecShell(ctx, req.Command)
+	}
 	resp := new(pb.TaskResponse)
 	resp.Output = output
 	if err != nil {

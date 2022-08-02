@@ -11,8 +11,9 @@ import (
 type TaskProtocol int8
 
 const (
-	TaskHTTP TaskProtocol = iota + 1 // HTTP协议
-	TaskRPC                          // RPC方式执行命令
+	TaskHTTP   TaskProtocol = iota + 1 // HTTP协议
+	TaskShell                          // Shell方式执行命令
+	TaskPython                         // python方式执行命令
 )
 
 type TaskLevel int8

@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+option go_package="./;rpc";
 package rpc;
 
 service Task {
@@ -7,6 +8,7 @@ service Task {
 }
 
 message TaskRequest {
+    string type = 1;  // 类型
     string command = 2; // 命令
     int32 timeout = 3;  // 任务执行超时时间
     int64 id = 4; // 执行任务唯一ID

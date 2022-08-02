@@ -247,6 +247,11 @@ func (h *RPCHandler) Run(taskModel models.Task, taskUniqueId int64) (result stri
 	taskRequest.Timeout = int32(taskModel.Timeout)
 	taskRequest.Command = taskModel.Command
 	taskRequest.Id = taskUniqueId
+	if taskModel.Protocol == models.TaskShell {
+		taskRequest.Type = "shell"
+	} else if taskModel.Protocol == models.TaskPython {
+		taskRequest.Type = "python"
+	}
 	resultChan := make(chan TaskResult, len(taskModel.Hosts))
 	for _, taskHost := range taskModel.Hosts {
 		go func(th models.TaskHostDetail) {
@@ -284,7 +289,7 @@ func createTaskLog(taskModel models.Task, status models.Status) (int64, error) {
 	taskLogModel.Protocol = taskModel.Protocol
 	taskLogModel.Command = taskModel.Command
 	taskLogModel.Timeout = taskModel.Timeout
-	if taskModel.Protocol == models.TaskRPC {
+	if taskModel.Protocol == models.TaskShell || taskModel.Protocol == models.TaskPython {
 		aggregationHost := ""
 		for _, host := range taskModel.Hosts {
 			aggregationHost += fmt.Sprintf("%s - %s<br>", host.Alias, host.Name)
@@ -352,7 +357,7 @@ func createHandler(taskModel models.Task) Handler {
 	switch taskModel.Protocol {
 	case models.TaskHTTP:
 		handler = new(HTTPHandler)
-	case models.TaskRPC:
+	case models.TaskShell:
 		handler = new(RPCHandler)
 	}
 
@@ -456,7 +461,7 @@ func SendNotification(taskModel models.Task, taskResult TaskResult) {
 		"output":           taskResult.Result,
 		"status":           statusName,
 		"task_id":          taskModel.Id,
-		"remark":  			taskModel.Remark,
+		"remark":           taskModel.Remark,
 	}
 	notify.Push(msg)
 }

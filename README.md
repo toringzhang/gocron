@@ -89,6 +89,8 @@ docker run --name gocron --link mysql:db -p 5920:5920 -d ouqg/gocron
 
 `make` 编译
 
+`protoc --go_opt=Minternal/modules/rpc/proto/task.proto=internal/modules/rpc/proto --go_out=. ./internal/modules/rpc/proto/task.proto`
+
 `make run` 编译并运行
 
 `make package` 打包 
