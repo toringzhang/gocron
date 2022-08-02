@@ -406,8 +406,10 @@ export default {
       if (this.form.protocol === 1) {
         return '请输入URL地址'
       }
-
-      return '请输入shell命令'
+      if (this.form.protocol === 2) {
+        return '请输入URL地址'
+      }
+      return '请输入python命令'
     }
   },
   components: {taskSidebar},
@@ -450,7 +452,7 @@ export default {
       this.form.retry_interval = taskData.retry_interval
       this.form.remark = taskData.remark
       taskData.hosts = taskData.hosts || []
-      if (this.form.protocol === 2) {
+      if (this.form.protocol === 2|| this.form.protocol === 3) {
         taskData.hosts.forEach((v) => {
           this.selectedHosts.push(v.host_id)
         })
@@ -484,7 +486,7 @@ export default {
         if (!valid) {
           return false
         }
-        if (this.form.protocol === 2 && this.selectedHosts.length === 0) {
+        if ((this.form.protocol === 2 && this.form.protocol === 3)&& this.selectedHosts.length === 0) {
           this.$message.error('请选择任务节点')
           return false
         }
@@ -503,7 +505,7 @@ export default {
       })
     },
     save () {
-      if (this.form.protocol === 2 && this.selectedHosts.length > 0) {
+      if ((this.form.protocol === 2 || this.form.protocol === 3) && this.selectedHosts.length > 0) {
         this.form.host_id = this.selectedHosts.join(',')
       }
       if (this.form.notify_status > 1 && this.form.notify_type === 2) {

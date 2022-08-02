@@ -181,6 +181,10 @@ export default {
         {
           value: '2',
           label: 'shell'
+        },
+        {
+          value: '3',
+          label: 'python'
         }
       ],
       statusList: [
