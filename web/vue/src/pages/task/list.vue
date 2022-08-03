@@ -279,6 +279,9 @@ export default {
       if (row[col.property] === 2) {
         return 'shell'
       }
+      if (row[col.property] === 3) {
+        return 'python'
+      }
       if (row.http_method === 1) {
         return 'http-get'
       }
