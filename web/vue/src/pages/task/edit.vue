@@ -452,7 +452,7 @@ export default {
       this.form.retry_interval = taskData.retry_interval
       this.form.remark = taskData.remark
       taskData.hosts = taskData.hosts || []
-      if (this.form.protocol === 2|| this.form.protocol === 3) {
+      if (this.form.protocol === 2 || this.form.protocol === 3) {
         taskData.hosts.forEach((v) => {
           this.selectedHosts.push(v.host_id)
         })
@@ -486,7 +486,7 @@ export default {
         if (!valid) {
           return false
         }
-        if ((this.form.protocol === 2 && this.form.protocol === 3)&& this.selectedHosts.length === 0) {
+        if ((this.form.protocol === 2 && this.form.protocol === 3) && this.selectedHosts.length === 0) {
           this.$message.error('请选择任务节点')
           return false
         }
