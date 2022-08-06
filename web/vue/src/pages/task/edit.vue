@@ -407,7 +407,7 @@ export default {
         return '请输入URL地址'
       }
       if (this.form.protocol === 2) {
-        return '请输入URL地址'
+        return '请输入shell命令'
       }
       return '请输入python命令'
     }
