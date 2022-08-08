@@ -118,6 +118,14 @@ docker run --name gocron --link mysql:db -p 5920:5920 -d ouqg/gocron
     * -h 查看帮助
     * -v 查看版本
 
+## 设置服务开机启动
+
+```bash
+cp gocron.server /lib/systemd/system/gocron.service
+sudo systemctl start gocron.service
+sudo systemctl enable gocron.service
+```
+
 ## To Do List
 - [x] 版本升级
 - [x] 批量开启、关闭、删除任务

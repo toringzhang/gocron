@@ -1,0 +1,17 @@
+[Unit]
+Description=gocorn
+After=network.target
+
+[Service]
+User=pi
+Type=forking
+ExecStart=bash /home/pi/workspace/gocron/control.sh start
+ExecStop=bash /home/pi/workspace/gocron/control.sh stop
+WorkingDirectory=/home/pi/workspace/gocron
+PrivateTmp=true
+KillMode=process
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
